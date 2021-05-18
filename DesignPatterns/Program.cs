@@ -36,46 +36,47 @@ namespace DesignPatterns
                 "Rex"
         };
 
-        static void Main(string[] args)
+        static void Main()
         {
-            while (true)
+            string text = "================Design Patterns================";
+            text += "\n1 - Abstract Factory\n";
+            text += "2 - Factory Method\n";
+            text += "3 - Singleton\n";
+            text += "4 - Adapter\n";
+            text += "5 - Composite\n";
+            text += "6 - Decorator\n";
+            Console.WriteLine(text);
+            var designPattern = Enum.Parse<DesignPattern>(Console.ReadLine());
+            switch (designPattern)
             {
-                string text = "\n1 - Abstract Factory\n";
-                text += "2 - Factory Method\n";
-                text += "3 - Singleton\n";
-                text += "4 - Adapter\n";
-                text += "5 - Composite\n";
-                text += "6 - Decorator\n";
-                Console.WriteLine(text);
-                var designPattern = Enum.Parse<DesignPattern>(Console.ReadLine());
-                switch (designPattern)
-                {
-                    //Creational
-                    case DesignPattern.AbstractFactory:
-                        AbstractFactoryScenario();
-                        break;
-                    case DesignPattern.FactoryMethod:
-                        FactoryMethodScenario();
-                        break;
-                    case DesignPattern.Singleton:
-                        SingletonScenario();
-                        break;
-                    //Structural
-                    case DesignPattern.Adapter:
-                        AdapterScenario();
-                        break;
-                    case DesignPattern.Composite:
-                        CompositeScenario();
-                        break;
-                    case DesignPattern.Decorator:
-                        DecoratorScenario();
-                        break;
-
-                    default:
-                        Console.WriteLine("Informe uma opção valida.");
-                        break;
-                }
+                //Creational
+                case DesignPattern.AbstractFactory:
+                    AbstractFactoryScenario();
+                    break;
+                case DesignPattern.FactoryMethod:
+                    FactoryMethodScenario();
+                    break;
+                case DesignPattern.Singleton:
+                    SingletonScenario();
+                    break;
+                //Structural
+                case DesignPattern.Adapter:
+                    AdapterScenario();
+                    break;
+                case DesignPattern.Composite:
+                    CompositeScenario();
+                    break;
+                case DesignPattern.Decorator:
+                    DecoratorScenario();
+                    break;
+                default:
+                    Console.WriteLine("Informe uma opção valida.");
+                    break;
             }
+
+            Console.ReadKey();
+            Console.Clear();
+            Main();
         }
 
         private static void CompositeScenario()
