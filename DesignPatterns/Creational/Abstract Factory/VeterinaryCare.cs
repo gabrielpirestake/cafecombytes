@@ -10,7 +10,7 @@ namespace DesignPatterns.Creational.Abstract_Factory
     public class VeterinaryCare
     {
         private readonly Vehicle _vehicle;
-        private readonly Dog _dog;
+        private readonly Dog _dog;       
         public VeterinaryCare(VeterinaryFactory hospitalFactory,
                               string dogName,
                               string dogBreed)
@@ -18,7 +18,7 @@ namespace DesignPatterns.Creational.Abstract_Factory
             _dog = hospitalFactory.CreateDog(dogName, dogBreed);
             _vehicle = hospitalFactory.CreateVehicle();
         }
-        
+
         public void Attend()
         {
             _vehicle.Transport(_dog);
