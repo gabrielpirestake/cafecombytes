@@ -1,4 +1,6 @@
 ﻿using System;
+using DesignPatterns.Behavioral.Command;
+using DesignPatterns.Behavioral.Observer;
 using DesignPatterns.Creational.Abstract_Factory;
 using DesignPatterns.Creational.Factory_Method;
 using DesignPatterns.Creational.Singleton;
@@ -42,9 +44,13 @@ namespace DesignPatterns
             text += "\n1 - Abstract Factory\n";
             text += "2 - Factory Method\n";
             text += "3 - Singleton\n";
+            text += "---\n";
             text += "4 - Adapter\n";
             text += "5 - Composite\n";
             text += "6 - Decorator\n";
+            text += "---\n";
+            text += "7 - Command\n";
+            text += "8 - Observer\n";
             Console.WriteLine(text);
             var designPattern = Enum.Parse<DesignPattern>(Console.ReadLine());
             switch (designPattern)
@@ -69,6 +75,13 @@ namespace DesignPatterns
                 case DesignPattern.Decorator:
                     DecoratorScenario();
                     break;
+                //Behavioral
+                case DesignPattern.Command:
+                    CommandScenario();
+                    break;
+                case DesignPattern.Observer:
+                    ObserverScenario();
+                    break;                
                 default:
                     Console.WriteLine("Informe uma opção valida.");
                     break;
@@ -77,6 +90,62 @@ namespace DesignPatterns
             Console.ReadKey();
             Console.Clear();
             Main();
+        }
+
+        private static void ObserverScenario()
+        {
+            var joao = new Observer("João");
+            var eduardo = new Observer("Eduardo");
+            var bill = new Observer("Bill");
+
+            var amazon = new StockExchange("Amazon", NextDecimal());
+            var microsoft = new StockExchange("Microsoft", NextDecimal());
+
+            amazon.Subscribe(joao);
+            amazon.Subscribe(eduardo);
+
+            microsoft.Subscribe(eduardo);
+            microsoft.Subscribe(bill);
+
+            Console.WriteLine("");
+            Console.WriteLine("------------------");
+            Console.WriteLine("");
+
+            for (int i = 0; i < 5; i++)
+            {
+                amazon.Value = NextDecimal();
+                microsoft.Value = NextDecimal();
+
+                if (i == 1)
+                {
+                    amazon.UnSubscribe(eduardo);
+                }
+            }
+        }
+        public static decimal NextDecimal()
+        {
+            var random = new Random();
+            var r = random.Next(141421, 314160);
+            return r / (decimal)100000.00;
+        }
+
+        private static void CommandScenario()
+        {
+            var user = new User();
+
+            user.Add('+', 100);
+            Console.ReadKey();
+            user.Add('-', 50);
+            Console.ReadKey();
+            user.Add('*', 10);
+            Console.ReadKey();
+            user.Add('/', 2);
+            Console.ReadKey();
+
+            user.Undo(4);
+            Console.ReadKey();
+
+            user.TurnBack(3);
         }
 
         private static void CompositeScenario()
@@ -112,6 +181,7 @@ namespace DesignPatterns
 
             bolo.AddChild(massa);
             bolo.AddChild(cobertura);
+            bolo.AddChild(bolo);
             bolo.ShowProducts(2);
         }
 
@@ -197,6 +267,8 @@ namespace DesignPatterns
         Singleton = 3,
         Adapter = 4,
         Composite = 5, 
-        Decorator = 6
+        Decorator = 6,
+        Command = 7,
+        Observer = 8
     }
 }
